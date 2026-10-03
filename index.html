@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEMO — The Cosmic Signature</title>
+<meta name="description" content="It's not just your name — it is who you are. Discover the 65 Cosmic Identity Names and the sacred story of your child's soul.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05040d;
+  --bg2:#0c0a1f;
+  --ink:#f3eefe;
+  --muted:#a69fc4;
+  --gold:#e9c77b;
+  --violet:#8b5cf6;
+  --cyan:#5eead4;
+  --pink:#f472b6;
+  --line:rgba(255,255,255,.09);
+  --card:rgba(255,255,255,.035);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.grad{background:linear-gradient(100deg,var(--gold),var(--pink) 45%,var(--violet) 75%,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.08;letter-spacing:-.01em}
+h2{font-size:clamp(2.2rem,5vw,3.8rem)}
+.lead{color:var(--muted);font-size:1.08rem;max-width:600px}
+section{padding:120px 0}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s}
+nav.scrolled{background:rgba(5,4,13,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:78px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:1.35rem;letter-spacing:.04em}
+.logo svg{width:34px;height:34px}
+.links{display:flex;gap:34px;font-size:.88rem;color:var(--muted)}
+.links a{transition:.25s;position:relative}
+.links a:hover{color:var(--ink)}
+.links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--gold);transition:.3s}
+.links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-size:.9rem;font-weight:500;transition:.3s;cursor:pointer;border:0;font-family:inherit}
+.btn-primary{background:linear-gradient(120deg,var(--gold),#f5a3c7);color:#1a1030;box-shadow:0 10px 40px -10px rgba(233,199,123,.55)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 50px -10px rgba(244,114,182,.6)}
+.btn-ghost{border:1px solid rgba(255,255,255,.2);color:var(--ink);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.nav-cta{padding:10px 22px}
+.burger{display:none;background:none;border:0;color:var(--ink);font-size:1.6rem;cursor:pointer}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:900px;height:900px;right:-260px;top:50%;transform:translateY(-50%);background:radial-gradient(circle,rgba(139,92,246,.35),rgba(244,114,182,.12) 40%,transparent 68%);filter:blur(20px);animation:pulse 9s ease-in-out infinite}
+@keyframes pulse{50%{transform:translateY(-50%) scale(1.08);opacity:.8}}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative}
+.hero h1{font-size:clamp(3rem,7.6vw,6.6rem);margin:22px 0 26px}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero .lead{font-size:1.18rem;margin-bottom:40px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:44px;margin-top:60px;padding-top:30px;border-top:1px solid var(--line);max-width:520px}
+.hero-meta b{display:block;font-family:var(--serif);font-size:2.4rem;font-weight:500;color:var(--gold);line-height:1}
+.hero-meta span{font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+.orb-wrap{position:relative;aspect-ratio:1;max-width:480px;margin-left:auto;width:100%}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(233,199,123,.25)}
+.ring.r2{inset:12%;border-color:rgba(139,92,246,.35);animation:spin 40s linear infinite}
+.ring.r3{inset:26%;border-color:rgba(94,234,212,.3);animation:spin 26s linear infinite reverse}
+.ring.r1{animation:spin 60s linear infinite}
+.ring::before{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);top:-5px;left:50%;box-shadow:0 0 18px var(--gold)}
+.ring.r2::before{background:var(--pink);box-shadow:0 0 18px var(--pink)}
+.ring.r3::before{background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.core{position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7e0,var(--gold) 25%,var(--pink) 55%,var(--violet) 85%);box-shadow:0 0 80px rgba(244,114,182,.6),0 0 160px rgba(139,92,246,.45);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.06);box-shadow:0 0 110px rgba(244,114,182,.75),0 0 200px rgba(139,92,246,.55)}}
+.sig{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1rem;white-space:nowrap}
+
+.scroll-hint{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);font-size:.7rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint i{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);padding:22px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+.track{display:flex;gap:60px;width:max-content;animation:scroll 40s linear infinite;font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--muted)}
+.track span{display:flex;align-items:center;gap:60px}
+.track span::after{content:"✦";color:var(--gold);font-style:normal;font-size:1rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* manifesto */
+.manifesto{text-align:center}
+.manifesto blockquote{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.6rem);font-weight:300;max-width:960px;margin:28px auto 30px;line-height:1.2}
+.manifesto p{margin:0 auto}
+
+/* trilogy */
+.head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:64px;flex-wrap:wrap}
+.head h2{max-width:620px;margin-top:16px}
+.trilogy{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t-card{position:relative;padding:44px 34px 40px;border:1px solid var(--line);border-radius:22px;background:var(--card);overflow:hidden;transition:.45s}
+.t-card::before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:linear-gradient(140deg,var(--gold),transparent 40%,transparent 60%,var(--violet));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.45s}
+.t-card:hover{transform:translateY(-8px);background:rgba(255,255,255,.055)}
+.t-card:hover::before{opacity:1}
+.t-num{font-family:var(--serif);font-size:5rem;line-height:1;font-weight:300;opacity:.9}
+.t-card h3{font-size:1.9rem;margin:22px 0 12px}
+.t-card p{color:var(--muted);font-size:.95rem}
+.t-tag{display:inline-block;margin-top:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+
+/* offerings */
+.offer{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+.o{border:1px solid var(--line);border-radius:22px;padding:40px;background:var(--card);position:relative;overflow:hidden;transition:.4s;display:flex;flex-direction:column;min-height:300px}
+.o:hover{border-color:rgba(233,199,123,.4)}
+.o.big{grid-column:span 7;background:radial-gradient(circle at 85% 20%,rgba(139,92,246,.35),transparent 55%),radial-gradient(circle at 10% 100%,rgba(244,114,182,.18),transparent 50%),var(--bg2)}
+.o.sm{grid-column:span 5}
+.o.half{grid-column:span 6}
+.o .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:rgba(233,199,123,.1);border:1px solid rgba(233,199,123,.25);margin-bottom:auto}
+.o .ico svg{width:24px;height:24px;stroke:var(--gold)}
+.o h3{font-size:2rem;margin:34px 0 10px}
+.o p{color:var(--muted);font-size:.95rem;max-width:440px}
+.o .more{margin-top:22px;font-size:.85rem;color:var(--gold);display:inline-flex;gap:8px;align-items:center}
+.o .more:hover{gap:14px}
+.o .more{transition:.3s}
+.big-num{position:absolute;right:30px;top:10px;font-family:var(--serif);font-size:11rem;font-weight:300;line-height:1;opacity:.13}
+.wave{display:flex;align-items:center;gap:4px;height:40px;margin-top:20px}
+.wave i{width:4px;border-radius:4px;background:linear-gradient(var(--cyan),var(--violet));animation:bar 1.2s ease-in-out infinite}
+@keyframes bar{50%{transform:scaleY(.3)}}
+
+/* journey */
+.journey{background:linear-gradient(180deg,transparent,rgba(139,92,246,.07),transparent)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;position:relative}
+.steps::before{content:"";position:absolute;top:28px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--violet),transparent);opacity:.5}
+.step{text-align:center;position:relative}
+.dot{width:56px;height:56px;border-radius:50%;margin:0 auto 26px;display:grid;place-items:center;background:var(--bg);border:1px solid rgba(233,199,123,.5);font-family:var(--serif);font-size:1.4rem;color:var(--gold);box-shadow:0 0 30px rgba(233,199,123,.2)}
+.step h4{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.9rem}
+
+/* author */
+.author{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.portrait{aspect-ratio:4/5;border-radius:200px 200px 24px 24px;background:radial-gradient(circle at 50% 30%,rgba(233,199,123,.35),transparent 50%),linear-gradient(170deg,#2b1856,#0c0a1f 70%);border:1px solid var(--line);position:relative;overflow:hidden;display:grid;place-items:center}
+.portrait svg{width:58%;opacity:.85}
+.portrait .cap{position:absolute;bottom:24px;left:24px;right:24px;padding:16px 20px;border-radius:14px;background:rgba(5,4,13,.6);backdrop-filter:blur(10px);border:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.portrait .cap b{display:block;color:var(--ink);font-family:var(--serif);font-size:1.2rem;font-weight:500}
+.author h2{margin:16px 0 24px}
+.author p{color:var(--muted);margin-bottom:18px}
+.quote-line{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink);border-left:2px solid var(--gold);padding-left:22px;margin:30px 0 36px}
+
+/* cta */
+.cta-box{position:relative;border-radius:32px;padding:90px 40px;text-align:center;overflow:hidden;border:1px solid rgba(233,199,123,.25);background:radial-gradient(ellipse at top,rgba(244,114,182,.25),transparent 60%),radial-gradient(ellipse at bottom,rgba(139,92,246,.35),transparent 60%),var(--bg2)}
+.cta-box h2{max-width:760px;margin:18px auto 20px}
+.cta-box .lead{margin:0 auto 38px}
+.form{display:flex;gap:10px;max-width:520px;margin:0 auto;padding:7px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.form input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);padding:0 20px;font-family:inherit;font-size:.95rem}
+.form input::placeholder{color:var(--muted)}
+.note{margin-top:18px;font-size:.8rem;color:var(--muted)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:70px 0 40px;margin-top:40px}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:50px}
+.f-grid h5{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:500}
+.f-grid ul{list-style:none;display:grid;gap:10px;color:var(--muted);font-size:.9rem}
+.f-grid ul a:hover{color:var(--ink)}
+.f-about{color:var(--muted);font-size:.92rem;max-width:360px;margin-top:18px}
+.socials{display:flex;gap:10px;margin-top:24px}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:.72rem;color:var(--muted);transition:.3s}
+.socials a:hover{border-color:var(--gold);color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;margin-top:60px;padding-top:26px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);flex-wrap:wrap;gap:12px}
+
+/* reveal */
+.rv{opacity:1;transform:none;transition:1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* demo + images */
+.demo-bar{position:fixed;top:0;left:0;right:0;z-index:60;height:30px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(90deg,#e9c77b,#f472b6,#8b5cf6);color:#140b26;font-weight:600}
+nav{top:30px}
+.logo img{height:46px;width:auto}
+.hero{background:linear-gradient(90deg,rgba(5,4,13,.94) 0%,rgba(5,4,13,.72) 42%,rgba(5,4,13,.25) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%),url(images/hero.jpg) center/cover no-repeat}
+.hero::before{opacity:.5}
+.soul-frame{position:absolute;inset:16%;border-radius:50%;overflow:hidden;box-shadow:0 0 80px rgba(94,234,212,.45),0 0 160px rgba(139,92,246,.4);animation:breathe 6s ease-in-out infinite}
+.soul-frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.15)}
+.manifesto{position:relative;background:linear-gradient(180deg,var(--bg),rgba(5,4,13,.55) 30%,rgba(5,4,13,.55) 70%,var(--bg)),url(images/music.jpg) center/cover fixed}
+.o.big{background:linear-gradient(100deg,rgba(12,10,31,.97) 35%,rgba(12,10,31,.4)),url(images/soul.jpg) right center/cover}
+.o.big .big-num{opacity:.25}
+.o.photo{background:linear-gradient(0deg,rgba(5,4,13,.95) 25%,rgba(5,4,13,.35)),var(--img) center/cover}
+.cta-box{background:linear-gradient(180deg,rgba(12,10,31,.82),rgba(12,10,31,.9)),url(images/wave.jpg) center/cover}
+.banner{height:340px;border-radius:28px;overflow:hidden;position:relative;display:grid;place-items:center;text-align:center;background:linear-gradient(0deg,rgba(5,4,13,.6),rgba(5,4,13,.2)),url(images/wave.jpg) center/cover;border:1px solid var(--line)}
+.banner h2{font-style:italic;text-shadow:0 4px 30px rgba(0,0,0,.6);padding:0 20px}
+
+@media (max-width:960px){
+  section{padding:90px 0}
+  .links,.nav-cta{display:none}
+  .burger{display:block}
+  .links.open{display:flex;position:absolute;top:78px;left:0;right:0;flex-direction:column;gap:22px;padding:30px 24px;background:rgba(5,4,13,.96);border-bottom:1px solid var(--line)}
+  .hero-grid,.author{grid-template-columns:1fr}
+  .orb-wrap{max-width:340px;margin:30px auto 0}
+  .trilogy{grid-template-columns:1fr}
+  .o.big,.o.sm,.o.half{grid-column:span 12}
+  .steps{grid-template-columns:1fr 1fr;gap:50px 20px}
+  .steps::before{display:none}
+  .f-grid{grid-template-columns:1fr}
+  .author{gap:50px}
+}
+@media (max-width:560px){
+  .container{padding:0 16px}
+  .hero-meta{gap:26px}
+  .hero-meta b{font-size:1.9rem}
+  .o{padding:30px}
+  .form{flex-direction:column;border-radius:22px}
+  .form input{padding:14px 16px}
+  .cta-box{padding:64px 22px}
+  .steps{grid-template-columns:1fr}
+}
+/* Product preview and finishing details */
+[id]{scroll-margin-top:130px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.skip{position:fixed;top:-80px;left:16px;z-index:100;background:var(--bg2);padding:12px}.skip:focus{top:36px}
+.track{animation:none;width:auto;justify-content:center;flex-wrap:wrap;gap:24px;font-size:1.2rem}.track span{gap:24px}.track span:nth-child(n+3){display:none}
+.hero::before,.soul-frame,.scroll-hint i,.wave i{animation:none}
+.keepsake-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.keepsake-copy h2{margin:18px 0 24px}.keepsake-copy .lead{margin-bottom:28px}
+.print-stage{padding:38px;background:radial-gradient(ellipse at center,#302047,transparent 72%);border-radius:24px}
+.signature-print{--accent:#e9c77b;position:relative;min-height:440px;padding:36px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--accent);border:8px solid #29232e;outline:1px solid #635544;box-shadow:0 24px 60px #0008;background:radial-gradient(ellipse at 50% 40%,#362447,#0b0916 70%)}
+.signature-print:before{content:'';position:absolute;inset:12px;border:1px solid currentColor;opacity:.35;pointer-events:none}
+.signature-print[data-tone='moon']{--accent:#d9e7f5;background:radial-gradient(ellipse at 50% 40%,#25384d,#080e19 70%)}
+.signature-print svg{width:150px;height:150px;margin:22px 0;flex-shrink:0}.signature-print h3{font-size:clamp(2.3rem,5vw,3.8rem);overflow-wrap:anywhere;max-width:100%}.signature-print p{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase}.signature-print small{font-family:var(--serif);font-style:italic;font-size:1rem;margin-top:12px}
+.preview-controls{display:grid;gap:14px;margin-top:26px}.preview-controls label{font-size:.82rem;color:var(--muted)}
+.preview-controls input{display:block;width:100%;margin-top:8px;border:1px solid var(--line);border-radius:10px;padding:13px 16px;background:var(--bg2);color:var(--ink);font:inherit}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}.swatches button{padding:10px 18px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;cursor:pointer;font:inherit;font-size:.8rem}.swatches button[aria-pressed='true']{border-color:var(--gold);color:var(--gold)}
+.more{background:none;border:0;text-align:left;font-family:inherit;cursor:pointer;padding:0;align-self:flex-start}
+dialog{margin:auto;width:min(520px,calc(100% - 32px));max-height:85vh;overflow:auto;background:var(--bg2);color:var(--ink);border:1px solid #756345;border-radius:22px;padding:36px;box-shadow:0 30px 100px #0009}dialog::backdrop{background:#03020bd9;backdrop-filter:blur(5px)}dialog h2{font-size:2.5rem;margin:24px 0 16px}dialog p{color:var(--muted);margin-bottom:24px}.dialog-close{float:right;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;padding:8px}
+.form:focus-within{border-color:var(--gold)}
+@media(max-width:960px){.keepsake-grid{grid-template-columns:1fr;gap:24px}.print-stage{max-width:480px;width:100%;margin:auto}.hero{padding-bottom:110px}.manifesto{background-attachment:scroll}.links.open{max-height:calc(100dvh - 108px);overflow:auto}.links a{padding:8px 0}}
+@media(max-width:560px){section{padding:64px 0}.head{margin-bottom:32px}.hero h1{font-size:3.2rem}.hero-meta{gap:18px;flex-wrap:wrap}.hero-meta span{font-size:.65rem}.hero .lead{font-size:1rem}.demo-bar{font-size:.6rem;letter-spacing:.12em}.print-stage{padding:18px}.signature-print{min-height:390px}.hero-ctas .btn{justify-content:center;width:100%}.logo img{max-width:180px;height:auto}.orb-wrap{max-width:270px}.btn{min-height:44px}.burger{min-width:44px;min-height:44px}}
+/* Each section has its own motion language; ambient effects run only in view. */
+.signature-print{overflow:hidden;transition:color .5s ease}
+.signature-print:after{content:'';position:absolute;inset:-70%;pointer-events:none;background:linear-gradient(110deg,transparent 43%,#fff1 49%,#fff3 50%,transparent 57%);transform:translateX(-65%) rotate(-12deg);opacity:0}
+#keepsake.is-visible .signature-print:after{animation:print-sheen 1.6s .45s ease-out both}
+@keyframes print-sheen{0%{opacity:0;transform:translateX(-65%) rotate(-12deg)}25%{opacity:1}100%{opacity:0;transform:translateX(65%) rotate(-12deg)}}
+.manifesto .grad{background-size:220% 100%;animation:cosmic-colour 9s ease-in-out infinite}
+@keyframes cosmic-colour{50%{background-position:100% 50%}}
+.journey .steps:before{transform:scaleX(0);transform-origin:left;transition:transform 1.5s cubic-bezier(.2,.7,.2,1)}
+.journey.has-entered .steps:before{transform:scaleX(1)}
+.journey .dot{transition:box-shadow .4s,background .4s}
+.step:hover .dot{background:#241638;box-shadow:0 0 40px #e9c77b55}
+#audio.is-visible .wave i{animation:bar 1.8s ease-in-out infinite}
+#author .portrait svg{animation:author-orbit 36s linear infinite;transform-origin:center}
+@keyframes author-orbit{to{transform:rotate(360deg)}}
+.cta-box:before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 15% 0%,#e9c77b20,transparent 55%);opacity:.3;animation:invitation-glow 7s ease-in-out infinite}
+@keyframes invitation-glow{50%{opacity:1;transform:translateX(15%)}}
+.cta-box>*{position:relative}
+.hero:not(.is-visible) .ring,.manifesto:not(.is-visible) .grad,#author:not(.is-visible) .portrait svg,#signup:not(.is-visible) .cta-box:before{animation-play-state:paused}
+body.page-hidden *{animation-play-state:paused!important}
+@media(hover:hover) and (pointer:fine){.signature-print:hover{transform:translateY(-5px);transition:transform .5s,color .5s}.o:hover .ico{transform:rotate(-6deg) scale(1.08)}.o .ico{transition:transform .4s}.t-card:hover .t-num{transform:translateX(6px)}.t-num{transition:transform .4s}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.journey .steps:before{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="wrap">
+<div class="demo-bar">✦ Demo Preview — Homepage Concept ✦</div>
+
+<nav id="nav">
+  <div class="container nav-in">
+    <a href="#" class="logo"><img src="images/logo.png" alt="Cosmic Signature"></a>
+    <div class="links" id="links">
+      <a href="#trilogy">The Trilogy</a>
+      <a href="#names">Cosmic Names</a>
+      <a href="#author">About the Author</a>
+      <a href="#audio">Audio Access</a>
+      <a href="#merch">Merch</a>
+    </div>
+    <a href="#signup" class="btn btn-primary nav-cta">Sign up</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="links">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="main">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow rv">✦ The soul of the vessel</div>
+      <h1 class="rv d1">It's not just your name.<br><em class="grad">It is who you are.</em></h1>
+      <p class="lead rv d2">Explore 65 Cosmic Identity Names, discover the story behind the Trilogy, and celebrate a name with a personal signature keepsake.</p>
+      <div class="hero-ctas rv d3">
+        <a href="#names" class="btn btn-primary">Discover Your Signature →</a>
+        <a href="#trilogy" class="btn btn-ghost">Explore the Trilogy</a>
+      </div>
+      <div class="hero-meta rv d3">
+        <div><b>65</b><span>Cosmic Names</span></div>
+        <div><b>3</b><span>Book Trilogy</span></div>
+        <div><b>1</b><span>Unified Motion</span></div>
+      </div>
+    </div>
+    <div class="orb-wrap rv d2">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="soul-frame"><img src="images/soul.jpg" alt="A soul's cosmic journey"></div>
+      <div class="sig">vast · whole · simple</div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll<i></i></div>
+</header>
+
+<div class="marquee">
+  <div class="track">
+    <span>Come for the names</span><span>Stay for the story</span><span>The soul of the vessel</span><span>An emotional energy force</span><span>Vast, whole &amp; simple</span>
+    <span>Come for the names</span><span>Stay for the story</span><span>The soul of the vessel</span><span>An emotional energy force</span><span>Vast, whole &amp; simple</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section id="keepsake">
+  <div class="container keepsake-grid">
+    <div class="print-stage">
+      <div class="signature-print" id="signature-print" data-tone="gold">
+        <p>The Cosmic Signature</p>
+        <svg viewBox="0 0 160 160" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="80" cy="80" r="64" opacity=".4"/><circle cx="80" cy="80" r="47" opacity=".6"/><ellipse cx="80" cy="80" rx="25" ry="64" transform="rotate(35 80 80)"/><ellipse cx="80" cy="80" rx="25" ry="64" transform="rotate(-35 80 80)"/><path d="M80 48l8 24 24 8-24 8-8 24-8-24-24-8 24-8z"/><circle cx="80" cy="16" r="3" fill="currentColor"/></svg>
+        <h3 id="preview-name">Your little universe</h3>
+        <small>A name. A story. A keepsake.</small>
+        <p style="margin-top:30px">Vast · Whole · Simple</p>
+      </div>
+      <p class="note" style="text-align:center">Illustrative keepsake concept · not a catalog product</p>
+    </div>
+    <div class="keepsake-copy">
+      <div class="eyebrow">Signature keepsakes</div>
+      <h2>A little universe.<br><em class="grad">Made personal.</em></h2>
+      <p class="lead">A name deserves more than a line on a page. Explore a keepsake concept inspired by The Cosmic Signature, with delicate celestial details and a personal touch.</p>
+      <div class="preview-controls">
+        <label for="keepsake-name">Try a name on the artwork<input id="keepsake-name" maxlength="28" placeholder="Enter a name" autocomplete="off" aria-describedby="preview-note"></label>
+        <div class="swatches" role="group" aria-label="Artwork colour"><button type="button" data-tone="gold" aria-pressed="true">✦ Starlight gold</button><button type="button" data-tone="moon" aria-pressed="false">☾ Moonlight silver</button></div>
+      </div>
+      <p class="note" id="preview-note">A design preview only. Your entry stays in this page; it does not select one of the 65 Cosmic Identity Names.</p>
+    </div>
+  </div>
+</section>
+<section class="manifesto">
+  <div class="container">
+    <div class="eyebrow rv">Our belief</div>
+    <div class="eyebrow rv" style="margin-top:8px;color:var(--cyan)">Cosmology of Living Existence</div>
+    <blockquote class="rv d1">“The universe is one unified motion — <span class="grad">vast, whole, and simple.</span>”</blockquote>
+    <p class="lead rv d2">We are not subordinate to it — we are expressions of it. Every soul arrives carrying a signature: a frequency, a story, an identity that was there before the first breath.</p>
+  </div>
+</section>
+
+<!-- TRILOGY -->
+<section id="trilogy">
+  <div class="container">
+    <div class="head">
+      <div>
+        <div class="eyebrow rv">The Cosmic Signature Trilogy</div>
+        <h2 class="rv d1">A transformative path, told in <em class="grad">three movements.</em></h2>
+      </div>
+      <p class="lead rv d2">Revealing the authentic gestational journey of your newborn child's sacred soul — from cosmic origin to living name.</p>
+    </div>
+    <div class="trilogy">
+      <article class="t-card rv">
+        <div class="t-num grad">I</div>
+        <h3>Volume One</h3>
+        <p>The first volume of The Cosmic Signature Trilogy.</p>
+        <span class="t-tag">Cover &amp; title to be revealed</span>
+      </article>
+      <article class="t-card rv d1">
+        <div class="t-num grad">II</div>
+        <h3>Volume Two</h3>
+        <p>The second volume of The Cosmic Signature Trilogy.</p>
+        <span class="t-tag">Cover &amp; title to be revealed</span>
+      </article>
+      <article class="t-card rv d2">
+        <div class="t-num grad">III</div>
+        <h3>Volume Three</h3>
+        <p>The third volume of The Cosmic Signature Trilogy.</p>
+        <span class="t-tag">Cover &amp; title to be revealed</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section id="names">
+  <div class="container">
+    <div class="head">
+      <div>
+        <div class="eyebrow rv">What awaits you</div>
+        <h2 class="rv d1">Come for the names.<br><em class="grad">Stay for the story.</em></h2>
+      </div>
+    </div>
+    <div class="offer">
+      <div class="o big rv">
+        <div class="big-num grad">65</div>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg></div>
+        <h3>Cosmic Identity Names</h3>
+        <p>Sixty-five unique signatures — each one a living energy with its own meaning, story and soul resonance. Find the one that was always meant to be.</p>
+        <button type="button" class="more" data-detail="names">About the 65 names →</button>
+      </div>
+      <div class="o sm rv d1">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <h3>Signature Keepsakes</h3>
+        <p>Custom-designed signature images — a beautiful, personal artwork of your child's cosmic name to treasure forever.</p>
+        <a href="#keepsake" class="more">Try the keepsake preview →</a>
+      </div>
+      <div class="o half photo rv" id="audio" style="--img:url(images/music.jpg)">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1v-6h3zM3 19a2 2 0 002 2h1v-6H3z"/></svg></div>
+        <h3>Audio Access</h3>
+        <p>Hear every name spoken as it was intended. Pronunciation audio for each Cosmic Identity Name.</p>
+        <div class="wave" aria-hidden="true" id="wave"></div>
+        <button type="button" class="more" data-detail="audio">Explore Audio Access →</button>
+      </div>
+      <div class="o half photo rv d1" id="merch" style="--img:url(images/hero.jpg)">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg></div>
+        <h3>The Merch Store</h3>
+        <p>Wear your signature. Apparel and gifts inspired by the cosmos and the names that carry its light.</p>
+        <button type="button" class="more" data-detail="merch">Explore merchandise →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey">
+  <div class="container">
+    <div class="head" style="justify-content:center;text-align:center">
+      <div>
+        <div class="eyebrow rv">How it works</div>
+        <h2 class="rv d1">Your path to the <em class="grad">signature</em></h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step rv"><div class="dot">1</div><h4>Read the story</h4><p>Begin with the Trilogy and the soul's sacred journey.</p></div>
+      <div class="step rv d1"><div class="dot">2</div><h4>Explore the names</h4><p>Discover all 65 Cosmic Identity Names and their meaning.</p></div>
+      <div class="step rv d2"><div class="dot">3</div><h4>Hear it spoken</h4><p>Listen to each name through Audio Access.</p></div>
+      <div class="step rv d3"><div class="dot">4</div><h4>Keep it forever</h4><p>Receive a custom signature keepsake for your child.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section id="author">
+  <div class="container author">
+    <div class="portrait rv">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#e9c77b" stroke-width=".6"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="32" opacity=".6"/><circle cx="50" cy="50" r="18" opacity=".4"/><path d="M50 4v92M4 50h92M17 17l66 66M83 17L17 83" opacity=".25"/><circle cx="50" cy="50" r="5" fill="#e9c77b"/></svg>
+      <div class="cap"><b>The Cosmic Signature</b>Cosmology of Living Existence</div>
+    </div>
+    <div>
+      <div class="eyebrow rv">The voice behind the signature</div>
+      <h2 class="rv d1">Written from the <em class="grad">soul</em>, for the soul.</h2>
+      <p class="rv d2">The Cosmic Signature brings together a trilogy, sixty-five Cosmic Identity Names and signature keepsake designs.</p>
+      <p class="rv d2">Explore the collection's perspective on identity, the soul and the journey before birth.</p>
+      <div class="quote-line rv d3">“It's not just your name — it is who you are.”</div>
+      <button type="button" class="btn btn-ghost rv d3" data-detail="author">About the author →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="signup">
+  <div class="container">
+    <div class="cta-box rv">
+      <div class="eyebrow">Join the journey</div>
+      <h2>Stay close to <em class="grad">the story.</em></h2>
+      <p class="lead">The Cosmic Signature digital space is growing. A place for new stories, names and keepsake discoveries.</p>
+      <form class="form" id="signup-form">
+        <input type="email" placeholder="Your email address" required aria-label="Email">
+        <button class="btn btn-primary" type="submit">Preview signup</button>
+      </form>
+      <div class="note" id="signup-status" role="status">Demo only — no email is collected or saved.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div>
+        <a href="#" class="logo"><img src="images/logo.png" alt="Cosmic Signature" style="height:60px"></a>
+        <p class="f-about">An emotional energy force — the soul of the vessel. Come for the names, stay for the story.</p>
+        <p class="note"><a href="https://venusroyale3.wixsite.com/the-cosmic-signature" target="_blank" rel="noopener noreferrer">Visit the original website ↗</a></p>
+      </div>
+      <div><h5>Explore</h5><ul><li><a href="#trilogy">The Trilogy</a></li><li><a href="#names">Cosmic Names</a></li><li><a href="#audio">Audio Access</a></li><li><a href="#merch">Merch Store</a></li></ul></div>
+      <div><h5>Connect</h5><ul><li><a href="#author">About the Author</a></li><li><a href="#signup">Sign up</a></li><li><a href="https://cosmicsignature.com">cosmicsignature.com</a></li></ul></div>
+    </div>
+    <div class="f-bot"><span>© 2026 The Cosmic Signature Collection. Demo homepage concept.</span><span>Vast · Whole · Simple</span></div>
+  </div>
+</footer>
+</div>
+
+<dialog id="detail-dialog" aria-labelledby="detail-title" aria-describedby="detail-copy">
+  <button type="button" class="dialog-close" autofocus aria-label="Close details">Close ×</button>
+  <div class="eyebrow">The Cosmic Signature</div>
+  <h2 id="detail-title"></h2>
+  <p id="detail-copy"></p>
+  <a class="btn btn-ghost" href="https://venusroyale3.wixsite.com/the-cosmic-signature" target="_blank" rel="noopener noreferrer">Explore the original website ↗</a>
+</dialog>
+<script>
+// starfield
+const motion=matchMedia('(prefers-reduced-motion: reduce)');
+const c=document.getElementById('stars'),x=c.getContext('2d');let W,H,S=[],frame;
+function size(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+S=Array.from({length:Math.min(260,innerWidth/4)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3*devicePixelRatio+.2,a:Math.random(),s:Math.random()*.015+.003,v:Math.random()*.15+.02}))}
+function draw(){x.clearRect(0,0,W,H);for(const s of S){s.a+=s.s;s.y-=s.v;if(s.y<0){s.y=H;s.x=Math.random()*W}
+x.globalAlpha=.35+Math.abs(Math.sin(s.a))*.65;x.fillStyle=s.r>1.2?'#f6e3b4':'#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill()}if(!motion.matches&&!document.hidden)frame=requestAnimationFrame(draw)}
+function restartStars(){cancelAnimationFrame(frame);size();draw()}
+restartStars();addEventListener('resize',restartStars);motion.addEventListener('change',restartStars);document.addEventListener('visibilitychange',restartStars);
+// nav
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30));
+const links=document.getElementById('links'),burger=document.getElementById('burger');
+function setMenu(open){links.classList.toggle('open',open);burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close menu':'Open menu')}
+burger.onclick=()=>setMenu(!links.classList.contains('open'));
+links.querySelectorAll('a').forEach(a=>a.onclick=()=>setMenu(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){setMenu(false);burger.focus()}});
+document.addEventListener('click',e=>{if(!nav.contains(e.target))setMenu(false)});
+matchMedia('(max-width:960px)').addEventListener('change',()=>setMenu(false));
+// Keepsake preview: text stays local and is never interpreted as HTML.
+document.getElementById('keepsake-name').addEventListener('input',e=>{document.getElementById('preview-name').textContent=e.target.value.trim()||'Your little universe'});
+document.querySelectorAll('.swatches button').forEach(button=>button.addEventListener('click',()=>{
+document.getElementById('signature-print').dataset.tone=button.dataset.tone;
+document.querySelectorAll('.swatches button').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+}));
+const details={
+names:['65 Cosmic Identity Names','The collection brings together sixty-five signatures and the story of a child’s sacred soul and cosmic identity. This homepage concept does not include the official name catalog yet. Explore the original website for the collection’s current information.'],
+audio:['A name, given a voice.','Audio Access introduces naming pronunciations. Official recordings have not been supplied for this concept, so this preview does not play sample or generated pronunciations. Visit the original website to explore its Audio Access section.'],
+merch:['Carry the signature with you.','Discover the brand’s merchandise through the original website. Products, prices and checkout are not part of this homepage concept. You can also try the interactive keepsake artwork preview on this page.'],
+author:['The voice behind the collection','An author portrait and approved biography will complete this section. For now, discover the creator through About the Author on the original Cosmic Signature website.']
+};
+const dialog=document.getElementById('detail-dialog');
+document.querySelectorAll('[data-detail]').forEach(button=>button.addEventListener('click',()=>{
+const [title,copy]=details[button.dataset.detail];document.getElementById('detail-title').textContent=title;document.getElementById('detail-copy').textContent=copy;dialog.showModal();
+}));
+dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+document.getElementById('signup-form').addEventListener('submit',e=>{e.preventDefault();document.getElementById('signup-status').textContent='Preview complete — no email was submitted or saved. Thank you for exploring the concept.';e.target.reset()});
+// wave bars
+const w=document.getElementById('wave');for(let i=0;i<46;i++){const b=document.createElement('i');b.style.height=(8+Math.abs(Math.sin(i*.55))*32)+'px';b.style.animationDelay=(i*.04)+'s';w.appendChild(b)}
+// Progressive enhancement: content stays visible if animation APIs are unavailable.
+// Entrance animations run once; ongoing decorative motion pauses offscreen.
+const activeEntrances=new Set();
+const effects={
+ rise:{transform:'translateY(30px)'},
+ hero:{transform:'translateY(26px)',filter:'blur(5px)'},
+ orbit:{transform:'scale(.86) rotate(-12deg)'},
+ artwork:{transform:'perspective(900px) rotateY(-14deg) translateY(30px)'},
+ slide:{transform:'translateX(30px)'},
+ quote:{transform:'scale(.94)',filter:'blur(6px)'},
+ book:{transform:'perspective(900px) rotateX(12deg) translateY(42px)',transformOrigin:'center bottom'},
+ card:{transform:'translateY(32px) scale(.96)'},
+ step:{transform:'translateY(20px) scale(.9)'},
+ portrait:{clipPath:'inset(0 0 100% 0 round 180px 180px 24px 24px)'},
+ invitation:{transform:'scale(.95) translateY(20px)'},
+ footer:{transform:'translateY(18px)'}
+};
+function entrance(element,type,delay=0){
+ if(motion.matches||!element.animate)return;
+ const start={opacity:0,...effects[type]};
+ if(innerWidth<600&&type!=='portrait'){start.transform='translateY(18px)';delete start.filter;delay=Math.min(delay,180)}
+ const end={opacity:1,transform:'none',filter:'none'};
+ if(type==='portrait')end.clipPath='inset(0 0 0% 0 round 180px 180px 24px 24px)';
+ const animation=element.animate([start,end],{duration:type==='portrait'?1100:850,delay,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'});
+ activeEntrances.add(animation);
+ animation.onfinish=animation.oncancel=()=>activeEntrances.delete(animation);
+}
+if('IntersectionObserver' in window){
+ const entranceObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  entrance(entry.target,entry.target.dataset.motion,Number(entry.target.dataset.motionDelay));
+  entranceObserver.unobserve(entry.target);
+ }),{threshold:.12});
+ function register(selector,type,stagger=100){document.querySelectorAll(selector).forEach((element,index)=>{
+  element.dataset.motion=type;element.dataset.motionDelay=String(index*stagger);entranceObserver.observe(element);
+ })}
+ register('.hero-grid > div:first-child > *','hero',110);
+ register('.orb-wrap','orbit');
+ register('.marquee .track','slide');
+ register('#keepsake .print-stage','artwork');
+ register('.keepsake-copy > *','slide',90);
+ register('.manifesto .eyebrow','rise',90);
+ register('.manifesto blockquote','quote');
+ register('.manifesto .lead','rise');
+ register('#trilogy .head > *,#names .head','rise',100);
+ register('.t-card','book',140);
+ register('.o','card',110);
+ register('.journey .head','rise');
+ register('.step','step',180);
+ register('#author .portrait','portrait');
+ register('#author .author > div:last-child > *','slide',85);
+ register('.cta-box','invitation');
+ register('.f-grid > *,.f-bot','footer',100);
+ const visibilityObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  entry.target.classList.toggle('is-visible',entry.isIntersecting);
+  if(entry.isIntersecting)entry.target.classList.add('has-entered');
+ }),{threshold:.08});
+ document.querySelectorAll('header.hero,section,#audio').forEach(element=>visibilityObserver.observe(element));
+ document.addEventListener('focusin',()=>{activeEntrances.forEach(animation=>animation.finish())});
+ motion.addEventListener('change',()=>{if(motion.matches)activeEntrances.forEach(animation=>animation.cancel())});
+}else{document.querySelectorAll('.journey').forEach(element=>element.classList.add('has-entered'))}
+document.addEventListener('visibilitychange',()=>{
+ document.body.classList.toggle('page-hidden',document.hidden);
+ activeEntrances.forEach(animation=>document.hidden?animation.pause():animation.play());
+});
+</script>
+</body>
+</html>
