@@ -183,7 +183,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;margin-top:40px}
 .demo-bar{position:fixed;top:0;left:0;right:0;z-index:60;height:30px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(90deg,#e9c77b,#f472b6,#8b5cf6);color:#140b26;font-weight:600}
 nav{top:30px}
 .logo img{height:46px;width:auto}
-.hero{background:linear-gradient(90deg,rgba(5,4,13,.94) 0%,rgba(5,4,13,.72) 42%,rgba(5,4,13,.25) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%),url(images/hero.webp) center/cover no-repeat}
+.hero{background:linear-gradient(90deg,rgba(5,4,13,.96) 0%,rgba(5,4,13,.76) 42%,rgba(5,4,13,.18) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%),url(images/cosmic-mother-hero.png) center/cover no-repeat}
 .hero::before{opacity:.5}
 .soul-frame{position:absolute;inset:16%;border-radius:50%;overflow:hidden;box-shadow:0 0 80px rgba(94,234,212,.45),0 0 160px rgba(139,92,246,.4);animation:breathe 6s ease-in-out infinite}
 .soul-frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.15)}
@@ -289,6 +289,8 @@ body.page-hidden *{animation-play-state:paused!important}
 /* Skip rendering offscreen sections until they approach the viewport. */
 #trilogy,.journey,#author,footer{content-visibility:auto;contain-intrinsic-size:auto 900px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.journey .steps:before{transform:none}}
+/* Reference-page sections */
+.reference-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.reference-card{padding:36px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(12,25,39,.9),rgba(4,8,16,.95))}.reference-card h2{font-size:2.5rem;margin:14px 0}.reference-card p{color:var(--muted)}.service-row,.faq-row{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}.service-icon{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;background:#a77c33;color:#07111d}.quote-card{padding:18px;border:1px solid var(--line);border-radius:12px;margin-top:14px}.quote-card strong{display:block;color:var(--gold);margin-top:8px}.insight{display:grid;grid-template-columns:92px 1fr;gap:15px;padding:14px 0;border-bottom:1px solid var(--line)}.insight img{width:92px;height:72px;object-fit:cover;border-radius:8px}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.contact-grid input,.contact-grid textarea{width:100%;padding:13px;margin:7px 0;background:#071727;border:1px solid var(--line);border-radius:8px;color:white;font:inherit}.thank-you{min-height:560px;display:grid;place-items:center;text-align:center;background:linear-gradient(#06142499,#061424dd),url(images/cosmic-mother-hero.png) center/cover;border-radius:18px;border:1px solid var(--line)}.thank-you h2{font-size:4.5rem}@media(max-width:760px){.reference-grid,.contact-grid{grid-template-columns:1fr}.thank-you h2{font-size:3rem}}
 </style>
 </head>
 <body>
@@ -488,6 +490,15 @@ body.page-hidden *{animation-play-state:paused!important}
     </div>
   </div>
 </section>
+
+<!-- REFERENCE COMPOSITION: SERVICES, STORIES, INSIGHTS, FAQ, CONTACT -->
+<section id="services"><div class="container reference-grid">
+  <article class="reference-card"><div class="eyebrow">Our services</div><h2>Guidance for every cosmic beginning.</h2><p>Explore a gentle journey designed to bring clarity, connection and a meaningful keepsake.</p><div class="service-row"><span class="service-icon">✦</span><div><strong>Personalized Cosmic Report</strong><br><small>Receive a detailed reading of your child's signature.</small></div></div><div class="service-row"><span class="service-icon">◌</span><div><strong>Expert Guidance</strong><br><small>Move through the collection at your own pace.</small></div></div><div class="service-row"><span class="service-icon">♬</span><div><strong>Digital Access</strong><br><small>Return to the story whenever you need it.</small></div></div></article>
+  <article class="reference-card"><div class="eyebrow">What parents say</div><h2>Stories from real journeys.</h2><div class="quote-card">“The report gave us a new perspective on our baby’s journey.”<strong>Sarah Khan · Lahore</strong></div><div class="quote-card">“A beautiful, thoughtful experience from beginning to end.”<strong>Ayesha Malik · Karachi</strong></div><div class="quote-card">“We felt seen, supported and connected.”<strong>Fatima Noor · Islamabad</strong></div></article>
+</div></section>
+<section id="insights"><div class="container reference-grid"><article class="reference-card"><div class="eyebrow">Cosmic insights</div><h2>Read, reflect, discover.</h2><div class="insight"><img src="images/wave.webp" alt="Cosmic sky"><div><strong>The importance of cosmic identity</strong><br><small>How a name can hold a story.</small></div></div><div class="insight"><img src="images/soul.webp" alt="Mother and child"><div><strong>How pregnancy shapes a journey</strong><br><small>Reflections for every stage.</small></div></div></article><article class="reference-card"><div class="eyebrow">Frequently asked questions</div><h2>Clear answers, gently held.</h2><div class="faq-row">What is the Cosmic Signature? <span>+</span></div><div class="faq-row">How accurate are the readings? <span>+</span></div><div class="faq-row">When will I receive my report? <span>+</span></div><div class="faq-row">Is this suitable for all families? <span>+</span></div><a class="btn btn-primary" href="#contact" style="margin-top:24px">Contact Us →</a></article></div></section>
+<section id="contact"><div class="container reference-card"><div class="eyebrow">Get in touch</div><h2>Let’s begin this journey together.</h2><div class="contact-grid"><div><p>Email<br><strong>hello@venus.com</strong></p><p>Phone<br><strong>+92 310 123 4567</strong></p><p>Location<br><strong>Lahore, Pakistan</strong></p></div><form><input placeholder="Full name"><input placeholder="Email address"><textarea rows="5" placeholder="How can we help you?"></textarea><button type="button" class="btn btn-primary">Send Message</button></form></div></div></section>
+<section><div class="container thank-you"><div><div class="eyebrow">Venus</div><h2>Thank You</h2><p>For being part of this beautiful journey.</p><a class="btn btn-primary" href="#top">Start Your Journey →</a></div></div></section>
 
 <!-- CTA -->
 <section id="signup">
